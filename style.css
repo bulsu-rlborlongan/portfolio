@@ -326,12 +326,13 @@
     }
 
     .theme-toggle span {
-      width: auto;
-      height: auto;
+      width: 1.15em;
+      height: 1em;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       position: relative;
+      line-height: 1;
       z-index: 1;
       transition: color 0.35s ease;
     }
@@ -339,6 +340,7 @@
     .theme-toggle .sun {
       color: #8b92a7;
       font-size: 20px;
+      transform: translateY(0.06em);
     }
 
     .theme-toggle .sun::after {
@@ -351,6 +353,7 @@
     .theme-toggle .moon {
       color: #ffffff;
       font-size: 17px;
+      transform: translateY(0.02em);
     }
 
     body.light-mode .theme-toggle .sun {
@@ -480,5 +483,11 @@
         align-items: stretch;
         flex-direction: column;
         gap: 4px;
+      }
+
+      .terminal-input-row {
+        align-items: baseline;
+        flex-direction: row;
+        gap: 8px;
       }
     }

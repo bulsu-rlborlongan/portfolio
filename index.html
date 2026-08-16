@@ -5,6 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Rap Borlongan — Software Developer</title>
+  <link rel="icon" type="image/png" href="./assets/dp.png">
 
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap"
     rel="stylesheet">
@@ -22,7 +23,7 @@
         <label for="introName">what is your name?</label>
       </div>
 
-      <div class="terminal-row" id="introNameStep">
+      <div class="terminal-row terminal-input-row" id="introNameStep">
         <span class="terminal-prompt" id="introNamePrompt">visitor:~$</span>
         <input id="introName" name="introName" type="text" autocomplete="name" required>
         <span class="terminal-input-cursor" aria-hidden="true">█</span>
@@ -31,7 +32,7 @@
       <p class="terminal-output" id="introOutput" aria-live="polite"></p>
 
       <div class="message-step" id="introConfirmStep">
-        <div class="terminal-row">
+        <div class="terminal-row terminal-input-row">
           <label for="introConfirm" id="introQuestion">Would you like to know me? (Y/N)</label>
         </div>
 
@@ -398,7 +399,7 @@
           <label for="sectionCommand">type a section</label>
         </div>
 
-        <div class="terminal-row terminal-input-step" id="commandStep">
+        <div class="terminal-row terminal-input-row terminal-input-step" id="commandStep">
           <span class="terminal-prompt" id="commandPrompt">visitor:~$</span>
           <input id="sectionCommand" name="sectionCommand" type="text" autocomplete="off">
           <span class="terminal-input-cursor" aria-hidden="true">█</span>
