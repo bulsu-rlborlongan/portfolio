@@ -8,285 +8,99 @@
 
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&display=swap"
     rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+  <script src="script.js" defer></script>
 
-  <style>
-    :root {
-      --bg: #ffffff;
-      --muted: #8a8989;
-      counter-reset: headings;
-    }
-
-    * {
-      box-sizing: border-box;
-    }
-
-    body {
-      font-family: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
-      font-size: 14px;
-      line-height: 1.5;
-      font-weight: 400;
-      margin: 8px;
-      padding: 0;
-      min-height: 100vh;
-      -webkit-font-smoothing: antialiased;
-      background: var(--bg);
-      overflow-x: hidden;
-    }
-
-    section {
-      width: 100%;
-      max-width: 750px;
-      margin: 0 auto 70px;
-      padding-top: 25px;
-    }
-
-    .container {
-      width: 100%;
-      max-width: 750px;
-      margin: 0 auto;
-    }
-
-    .hero-container {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: 20px;
-      width: 100%;
-      margin: 30px auto 70px;
-    }
-
-    .hero {
-      width: 400px;
-      max-width: 100%;
-      flex: none;
-      margin: 0;
-    }
-
-    h1 {
-      margin: 0 0 20px;
-      font-size: clamp(34px, 8vw, 58px);
-      line-height: 1.05;
-      letter-spacing: -0.04em;
-      font-weight: 700;
-      overflow-wrap: anywhere;
-    }
-
-    h2 {
-      counter-increment: headings;
-      margin: 0 0 24px;
-      font-size: clamp(17px, 4.5vw, 20px);
-      line-height: 1.4;
-      font-weight: 700;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      white-space: nowrap;
-      min-width: 0;
-    }
-
-    h2::before {
-      content: none;
-    }
-
-    .heading-prefix {
-      color: var(--muted);
-      font-weight: 400;
-    }
-
-    h2::after {
-      content: none;
-    }
-
-    .heading-line {
-      color: var(--muted);
-      flex: 1 1 auto;
-      font-weight: 100;
-      min-width: 0;
-      white-space: nowrap;
-      overflow: hidden;
-    }
-
-    .intro {
-      margin: 0;
-      line-height: 1.8;
-      max-width: 100%;
-      font-size: 14px;
-      color: var(--muted);
-      overflow-wrap: anywhere;
-    }
-
-    .art {
-      font-family: "JetBrains Mono", monospace;
-      font-size: 6px;
-      line-height: 6px;
-      max-width: 100%;
-      overflow: hidden;
-      white-space: pre;
-    }
-
-    .stack_type {
-      color: #777;
-      margin: 0 0 5px;
-    }
-
-    .stack {
-      margin: 20px 0 20px clamp(0px, 3vw, 20px);
-    }
-
-    .stack ul {
-      list-style: none;
-      margin: 0;
-      padding-left: 30px;
-    }
-
-    .stack li {
-      position: relative;
-      font-weight: bold;
-      padding: 2px 0;
-      overflow-wrap: anywhere;
-    }
-
-    .stack li::before {
-      content: "├──";
-      position: absolute;
-      left: -30px;
-      color: #555;
-    }
-
-    .stack li:last-child::before {
-      content: "└──";
-    }
-
-    .typewriter {
-      visibility: hidden;
-    }
-
-    .unicode-type {
-      visibility: hidden;
-    }
-
-    .type-cursor:not(h2)::after {
-      content: "█";
-      margin-left: 3px;
-      animation: blink 0.8s steps(1) infinite;
-    }
-
-    @keyframes blink {
-      50% {
-        opacity: 0;
-      }
-    }
-
-    @media (max-width: 760px) {
-      body {
-        margin: 0;
-        padding: 24px max(16px, env(safe-area-inset-right)) 56px max(16px, env(safe-area-inset-left));
-      }
-
-      section {
-        margin-bottom: 56px;
-        padding-top: 20px;
-      }
-
-      .hero-container {
-        flex-direction: column;
-        align-items: flex-start;
-        margin: 18px auto 56px;
-      }
-
-      .art {
-        align-self: center;
-        width: 100%;
-        max-width: 100%;
-        font-size: clamp(2.4px, 1vw, 4px);
-        line-height: 1;
-      }
-
-      .hero {
-        width: 100%;
-      }
-
-      h1 {
-        font-size: clamp(34px, 10vw, 44px);
-      }
-    }
-
-    @media (max-width: 480px) {
-      body {
-        font-size: 13px;
-      }
-
-      h2 {
-        gap: 6px;
-      }
-
-      .stack ul {
-        padding-left: 24px;
-      }
-
-      .stack li::before {
-        left: -24px;
-      }
-    }
-  </style>
 </head>
 
 
 <body>
 
-  <main class="container">
+  <div class="intro-terminal" id="introTerminal">
+    <form class="terminal-form" id="introForm">
+      <div class="terminal-row">
+        <label for="introName">what is your name?</label>
+      </div>
+
+      <div class="terminal-row" id="introNameStep">
+        <span class="terminal-prompt" id="introNamePrompt">visitor:~$</span>
+        <input id="introName" name="introName" type="text" autocomplete="name" required>
+        <span class="terminal-input-cursor" aria-hidden="true">█</span>
+      </div>
+
+      <p class="terminal-output" id="introOutput" aria-live="polite"></p>
+
+      <div class="message-step" id="introConfirmStep">
+        <div class="terminal-row">
+          <label for="introConfirm" id="introQuestion">Would you like to know me? (Y/N)</label>
+        </div>
+
+        <div class="terminal-row">
+          <span class="terminal-prompt" id="introConfirmPrompt">visitor:~$</span>
+          <input id="introConfirm" name="introConfirm" type="text" maxlength="1" autocomplete="off">
+          <span class="terminal-input-cursor" aria-hidden="true">█</span>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <main class="container site-shell" id="siteShell">
 
     <div class="hero-container">
 
       <pre class="art unicode-type" data-speed="60">
-          ⠐⠀⢂⠈⡈⠄⠡⠈⡈⠐⡀⠂⡁⠂⢂⠐⠨⠠⠁⡂⠔⢈⠐⠄⢂⢐⢀⠂⠌⡠⢁⠂⠄⠅⠡⠡⠈⠄⡊⠔⡨⢂⠅⢕⠸⡐⠠⠈⠄⡁⢂⠨⠀⡂⢐⠐⡀⢂⠈⠄⠐⡈⠠⠈⠌⠠⢈⠂⠡⠑⠈⢂⠊⢂⠊⠢⠑⠅⠕⠌
-          ⠀⡁⠄⠠⠀⡐⠀⢁⠀⠂⠀⠄⠠⠈⠀⡀⠂⡀⠂⢀⠐⠀⠐⠈⢀⠀⠄⡈⠠⠐⢀⠈⡈⢈⠈⡈⠄⢁⠪⡐⢌⢐⠡⠡⡱⠠⠡⠁⠅⡐⠄⢂⠡⠐⡀⡂⡐⠠⠈⠄⠡⠐⢈⠐⠠⠠⠐⡈⠄⠡⠈⠄⡂⡐⢈⠐⡈⠄⠂⡂
-          ⠀⠠⠀⠂⠀⠄⠐⠀⠀⠈⠀⠀⠄⠀⠂⠀⢀⠀⠀⡀⠀⠈⢀⠈⠀⠐⡀⠄⠐⠀⠄⠠⠀⠄⠠⠀⠐⠠⡑⡐⠔⡐⠡⡑⢌⠄⠀⠂⠀⠄⠠⠀⠀⠂⠀⠀⡀⠈⠀⠁⠁⠈⠀⠈⠈⠀⠁⠐⠈⠀⠅⠂⠊⠀⠂⢂⠐⠨⠐⠠
-          ⠀⠠⠀⠂⠀⢀⠀⠀⠈⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠁⢀⠂⠠⠁⠀⠂⠀⠂⠠⠈⠠⠑⡨⡰⢁⠊⠔⡠⠡⠀⡀⠁⠠⠀⠀⠄⠂⠀⠂⠁⠀⠀⠀⢀⠀⠀⠀⠠⠀⠂⠁⠀⠀⠄⠀⠀⡈⠀⠈⠀⡀⠄⠐⠀
-          ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠀⠡⠀⡨⢀⠁⣈⢄⣼⣨⣮⣷⣾⣾⣼⣾⣺⣞⣔⡀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠈⠀⠀⠀⠀⠂
-          ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠐⢄⣷⣿⣷⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣾⣿⣽⣷⣷⢦⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⠀⠀
-          ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣷⣿⣿⣧⣂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-          ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠄⠰⣸⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢿⣽⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠀
-          ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠂⠁⡐⣔⣵⣿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⣿⡦⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-          ⣀⡄⡄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⢁⢠⣪⣯⣿⣿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⣿⣽⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-          ⣞⡮⣞⣜⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⠈⡔⣫⣿⣯⣿⣿⢿⣿⣿⣿⡿⣿⢽⣳⢟⡾⣺⣻⣳⢿⡽⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣷⣟⡦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-          ⣷⣿⢵⡳⠀⣞⣶⡶⣶⣲⣖⣦⢶⢴⢴⣔⡴⡤⡤⣄⢮⢾⣟⣯⣿⣿⣿⣿⣿⡿⡯⡯⣗⢯⡺⡝⡮⣻⢺⡪⣗⣟⣗⢿⣽⢿⣿⣿⣿⣿⣿⣿⣿⣽⡿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
-          ⣿⣿⣝⡞⢬⣿⣟⣿⣯⣿⣾⣯⣿⣟⣯⣷⣿⣟⣿⣺⢽⣟⣿⣿⣿⣿⣿⣿⡯⡿⡽⣝⢮⢺⢸⢪⡚⡎⡗⣝⢮⢺⢜⢗⡽⡯⡿⣾⣿⣿⣿⣿⣾⣷⣿⣿⡵⣼⣺⢦⣄⣤⣠⣠⡠⣀⣀⣀⣀⣀⣀⢀⡐⠀⠀⠀⠀⠀⠀⠀
-          ⣿⣿⠎⡪⣪⣿⣿⣿⣿⣿⣯⣿⣷⣿⣿⣿⣷⣿⡷⣫⣿⣿⣿⣿⣿⣿⣿⣗⢯⢏⣗⢕⡇⡗⡝⡜⢜⢜⢜⢜⢜⢕⢝⢜⢎⢏⣟⢮⢷⢿⣿⣿⣿⣿⣿⣿⣻⣗⣿⣻⣾⣳⣷⡷⣿⣻⣽⣯⣷⢿⣾⣻⡅⠀⠀⠀⠀⣿⣺⣾
-          ⣿⣿⣇⠿⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⣿⣻⣿⣿⣿⣿⣿⣗⡯⡎⡇⡇⡇⡇⡇⡇⡎⢎⠆⡇⡣⡣⢣⢣⢣⢣⢳⢸⢱⢝⢕⢯⢟⣾⣿⣿⣿⣿⣷⣻⣯⣿⣯⣷⣿⣿⣿⣿⣽⣿⣿⣯⣿⠄⠀⠀⠀⢨⣿⣿⣾
-          ⣿⣿⣷⣳⡮⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣽⣿⣿⣿⣿⣟⡮⣞⣮⣺⣼⣺⣮⣮⣲⢱⢱⢑⢅⢇⢎⢎⢮⣪⣾⣼⣞⣮⢷⣽⣪⡳⡽⣿⣿⣿⣿⢷⣿⣟⣿⣿⣿⣿⣿⣿⣾⣿⣿⣯⣿⣾⠀⠀⠀⠀⢸⣿⣿⣿
-          ⣋⢛⠻⣟⢛⣛⣿⡻⣿⡟⠻⠻⣿⣿⣿⣿⣿⣿⣿⣿⣽⣿⣿⣿⣿⡪⣟⡳⡝⡞⡽⣝⢷⣻⣺⢽⡺⣜⡜⣜⢼⢵⢯⣗⣟⣞⢽⢹⢹⢪⡺⡝⡞⣿⣿⣿⣿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡯⠀⠀⠀⠀⣺⣿⣿⣿
-          ⠹⡻⡿⡾⣽⢮⢯⢫⢫⢻⡢⠀⢘⣿⡿⡿⡿⡿⣯⣿⣟⢿⣿⣿⣗⢕⢕⢜⢜⢼⠸⡜⣜⣞⢮⢯⢯⡺⡜⡜⣕⢯⣳⡣⣗⢮⢎⢞⢼⢸⢸⢸⢨⢻⣿⣿⢿⢿⢿⣿⣿⣿⣿⣿⢿⢿⢿⢿⣿⣿⣿⣏⢀⢀⠀⠀⠿⠿⢿⣿
-          ⠾⠿⠿⠿⠾⠾⠾⠾⡶⡵⡴⣯⣷⣿⣟⣿⣾⣻⡲⡀⢀⠀⢿⣿⡇⡣⡱⣕⣷⢷⣿⣿⣿⢞⣯⢯⡳⡣⡑⢌⢪⡳⡳⣽⣟⣿⣿⣿⢗⣿⢼⡸⡐⡹⣿⡿⠿⢾⢷⣷⣷⣿⣾⣿⣷⢶⡦⡤⣥⣬⣈⠡⠠⢄⢁⣁⣀⣀⡈⣉
-          ⣴⣰⣰⣄⣆⣤⣐⣄⣄⣠⣀⢄⣀⣀⡠⡀⡄⡁⣀⢀⡀⡀⠰⣿⠣⡑⡱⢩⢪⢳⡹⣫⠯⡏⡏⡞⡜⢜⠨⠢⡑⡍⡏⣗⢳⢽⡹⣝⢝⡜⡜⢌⠢⠊⣿⢯⣔⣰⣲⣼⣭⣗⣟⣯⣪⣥⣄⣄⣄⣁⡁⡀⠀⠀⠉⠙⠙⠙⡙⣛
-          ⣿⣿⣟⡪⣓⢓⡛⢞⠺⠳⡫⠯⠺⡪⠏⡏⢯⢯⢯⣟⣽⣟⡏⡫⡑⡐⢌⠪⢘⠸⡘⢜⢘⢌⠪⡨⡊⢆⠕⠡⡑⡅⡇⢎⢪⠢⠣⡃⢇⠪⡨⢂⠕⡁⢺⢤⡠⣀⣄⡠⣁⣁⣉⢉⡉⣈⢉⡉⡉⡑⠙⠙⠀⡀⠈⠈⠊⠚⠞⠿
-          ⣿⣿⡷⣝⢜⢕⢝⢜⢎⢏⢎⢎⢏⢎⢇⢯⡪⣯⣿⣮⣷⣿⡎⡗⢌⠢⡑⠌⡂⡑⠌⡂⢅⢢⢑⢕⢘⢔⢨⠨⡂⠕⢜⢜⢐⢅⢃⠪⢐⠅⡊⠔⢌⠔⡡⡳⣹⢽⣳⣟⢷⢽⣺⢽⢽⢽⣻⢾⣿⣿⣿⣿⣿⣾⣿⣿⣿⣿⣾⣷
-          ⣿⣿⣿⡪⡇⡗⡕⡕⡕⡕⡕⡕⣕⢕⢕⡕⡵⣹⣿⣿⣿⣿⡇⡎⡆⠕⡌⢌⢂⠪⡐⢌⠢⡱⡑⡌⡮⣲⢱⢕⢵⡹⣐⢱⠨⡂⡢⠡⡑⠌⠔⢅⠕⡌⣎⢎⣺⡽⣺⣽⢽⣝⢾⢽⢝⣟⡞⣍⢎⣍⡫⣙⢝⣋⣛⢛⢻⢛⡛⡟
-          ⣿⣿⡷⣝⢎⢎⢎⢮⢪⢪⡪⡪⡪⡪⡪⡪⡪⡖⣿⣿⣿⡗⡝⢼⢌⢕⢜⠰⡡⡑⢌⠢⡑⢕⢕⡽⡿⡻⡽⡝⣟⢿⢧⢇⢇⢕⢨⠨⠢⡑⡍⡢⡃⡎⣺⣳⢸⢽⡳⣝⣷⢽⢕⡯⣫⡾⣱⠱⡱⡢⡣⡣⡳⡸⡸⡸⡱⡕⡵⣹
-          ⣿⣿⣟⡮⡇⡇⡇⡇⢇⢇⢇⢇⢇⢇⢇⠇⡇⡯⡺⣿⣿⣷⣷⡹⡨⢢⠣⡱⡑⡌⢎⠪⡘⢔⠕⡝⡪⡣⡣⡣⡣⣫⢹⢑⠱⡐⢅⠪⡪⢢⠣⡪⡸⢸⢘⢜⣜⢷⢽⡽⣞⣿⣷⣿⢿⡱⡣⡣⡣⡣⡣⡣⡣⡣⡣⡣⡣⡣⡳⣕
-          ⣿⣿⣗⣯⢎⡪⡢⡣⡣⡱⡸⡰⡱⢱⠸⡘⡜⡜⣗⢝⢕⣽⣿⣷⠡⡣⡱⡑⡕⡕⡕⡅⣇⢕⡵⡱⡹⡸⢸⠸⣘⢜⢜⢜⢬⢪⢸⠨⡊⡆⡇⡇⢎⢎⠎⣕⣯⡫⣯⣻⡽⣿⣿⣾⡣⣳⢱⠱⡱⡸⡸⡸⡸⡸⡸⡸⡸⡜⣎⢮
-          ⣿⣿⣷⣿⣷⣱⡱⡜⡜⡜⡜⡜⡜⡜⡜⣜⢜⡼⡽⡮⣾⣿⣿⣿⣧⢪⢸⢸⢸⢸⢜⣞⢮⡣⣧⣳⢽⣺⣳⢽⣺⣳⣳⣕⡭⡳⣣⡳⡱⡱⡱⡸⡸⣰⣵⣿⣿⣿⣿⣷⣿⡩⡫⣓⢽⠸⡐⢕⠱⡘⡌⡆⡇⡇⡇⡇⡇⢇⢳⣝
-          ⣿⣿⣟⣿⡿⣷⣿⡾⣷⣳⣷⣵⣗⣷⣽⣮⣷⣿⣿⣾⣿⣿⣿⣿⣿⡇⡕⡜⡜⣜⢵⣳⢷⢟⡗⡫⡫⢫⢚⠫⡋⡝⡝⡷⡿⡿⣮⡫⡎⡎⡎⡆⢇⣿⣿⣿⣿⣿⣿⣿⣿⣧⢪⣪⢗⢕⢱⢑⢕⢱⢡⢣⢱⢑⢕⢕⢱⢱⢱⣳
-          ⣿⣿⣿⣿⣿⣿⣷⣿⠍⠉⢝⠉⠉⠉⢓⢹⡺⡷⣷⢷⣿⣿⣿⣿⣿⣗⡕⢕⢕⢕⡕⣇⢏⢞⢎⣗⢗⡵⣕⢧⡳⡵⣳⢳⢝⡺⡪⡞⡎⡎⡎⡎⣮⣿⣿⣟⣟⣟⢟⣿⣿⣻⣿⣝⡳⡵⣱⡱⡱⡱⡱⡱⡱⡱⡱⡱⡱⣕⣿⣯
-          ⣿⣿⣿⣿⣿⣿⣿⡿⡄⢠⣣⠀⠐⣌⣗⣝⠀⣝⣿⣻⣿⣷⣿⣿⣿⣿⣷⡱⡱⣱⢹⡸⡜⡎⣇⢗⢯⡻⣺⢯⢯⢻⣪⡫⢮⡪⣳⢹⢜⢎⢎⡲⣿⣿⣿⣿⣿⠄⢩⡿⡹⣾⠀⠩⡛⠛⢻⣽⡿⢿⣾⣷⣿⣾⣯⣿⣿⣿⣿⣟
-          ⣿⣿⡿⣻⡿⣿⣿⢽⢇⡗⣗⠢⡢⡒⡕⣗⢕⣗⢿⣻⣿⣻⣿⣿⣿⣻⣽⣷⡱⡱⡕⡵⡱⣝⢜⢮⡣⡯⡮⣳⢝⣕⢧⡫⣇⢯⢺⡸⡪⣪⢪⣾⣿⣿⣿⣿⣿⠂⣸⡯⡆⣻⠀⢰⢡⢂⢴⢽⡣⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷
-          ⣿⣿⣟⣿⣫⢗⣿⣝⣵⡳⡵⣕⢵⡱⣝⢮⢧⣗⣟⣾⣟⣞⣿⣿⣿⣳⣻⡏⢜⢎⡞⡼⡱⣕⢝⢮⣪⡳⣝⡮⡯⣺⢵⢝⢼⡱⣳⢹⢜⡎⣾⣿⣿⣿⣿⣿⣿⡣⢽⡇⡊⣿⡐⢕⠕⢧⡫⣟⢗⡿⣿⣻⢿⢿⣿⣿⡿⣾⣿⡧
-          ⣿⡿⡫⡮⣪⡫⣟⢞⢮⡫⡞⡎⡗⣝⢵⡫⣳⢳⢕⣿⡗⡗⣿⣿⡿⠺⠙⠁⠸⡸⣪⡳⣝⢼⣱⢳⣕⢯⣗⢯⡻⡮⣳⢝⡵⣹⢼⢕⡗⣝⠄⢿⣿⣿⣿⣿⣿⣮⣻⣕⣕⣿⢎⡮⡮⣣⡳⡵⣝⡾⡵⣯⢯⣯⣿⣿⣟⣿⣿⣯
-          ⢾⡏⢎⢎⢖⢕⡳⡹⡱⡱⡣⡫⡺⡸⡪⡺⢜⢎⢗⢽⠇⠇⠇⠆⢀⠐⠀⠀⠈⣗⠵⣝⢞⣗⢷⣝⡮⣗⣽⢵⢯⢯⣞⡵⣯⡺⣕⢯⡺⡪⡇⠀⠉⠙⠻⣿⣿⣾⣿⢪⠮⣿⢳⢝⢽⢕⢯⢯⡺⡽⡽⡽⣯⣻⢿⣿⣻⢿⣿⢯
-          ⣿⠪⡨⢢⢑⠕⡌⢆⠣⡪⠨⠊⠌⠊⠌⠪⠨⠊⠈⢀⠀⠀⠀⠠⢐⠁⠀⠀⠀⢸⡽⡸⣕⣗⢯⣞⡽⣻⢞⡿⡽⡯⣞⢽⡪⣞⢵⡳⡕⣿⠌⠀⠀⠁⠄⡈⠉⠙⠈⠊⠪⢿⡨⢪⢪⢪⢣⢣⢫⢪⢣⡋⡎⡞⡻⡱⡓⡝⣝⢕
-          ⣿⢨⢊⠢⡑⠑⠘⠈⠀⠀⠀⠀⠀⠀⠀⡀⠄⠂⠈⡀⠀⢀⠈⠠⠑⠀⠀⠀⠀⠄⢿⣝⣜⢮⡳⣳⣫⢯⢯⣫⢯⢯⣺⢳⢝⢮⡳⣕⢽⡿⠨⠀⠀⠀⢅⠀⠀⠀⢁⠠⠀⠀⠈⠈⠈⠊⠊⠎⡎⡇⡇⡇⡇⡎⢜⠰⡑⢕⢕⢕
-          ⠙⠈⢀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠈⠠⠀⠄⢂⠠⠀⠄⠀⠠⢈⠂⠀⠀⠀⠀⡀⠹⣮⢮⢺⡪⡳⣕⢯⢳⡳⣫⡳⣕⢏⣏⢧⢳⢕⣿⡏⠄⠀⠀⠀⠌⠄⠀⠀⠀⠀⠀⡁⢀⠀⠀⠀⠀⠀⠀⠀⠁⠁⠑⠑⠅⡣⡱⠡⠣⡑
-          ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⠂⢁⠀⠂⠐⢀⠀⠀⠀⠐⠐⡀⢀⠀⠀⡀⠄⠀⠐⣽⣞⢜⢎⡏⡮⣪⢳⡹⡜⡮⣪⡳⣕⡳⡹⣝⡯⠂⠄⠀⠀⠀⠈⠄⠀⠀⠀⠐⠀⠀⠀⠀⠁⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠈⠕⢌
-          ⠀⠀⠀⠀⠀⠀⢀⠀⠂⠀⠀⠈⡀⠂⡀⢁⠈⠀⠀⠀⢈⠈⠄⡀⠀⢀⠀⠀⠀⠀⢂⢚⣿⡪⣣⢳⡹⣜⢮⣪⢺⡪⡺⡜⣖⢭⢯⣟⠇⡁⠄⠀⠀⠀⠈⠄⡀⠀⠀⠀⠂⢁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠠⠀⠀⠁
-          ⠀⠀⠈⠀⠀⠀⠠⠀⠅⠂⠀⠄⢀⢁⠀⡀⠀⠄⠀⠐⢀⠐⠀⠀⠄⠀⠀⠀⠀⠄⠐⡀⢯⣯⢎⢞⢜⢎⢧⢳⢕⢽⡱⡝⣜⢮⣻⡺⠁⠄⠀⠀⠀⠀⠀⢊⠀⠀⠀⠀⠈⠀⠄⢁⠠⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠂⠀⠀⠁⠀
-          ⠀⠀⢈⠀⠀⠀⠠⢈⠐⠀⢀⠀⠄⡀⠂⠀⠀⠀⠀⡈⠀⠀⠐⠀⠀⠀⠀⠀⠀⠀⠐⢀⠑⣿⡳⡕⣝⢜⢎⢮⡪⡣⡣⡫⣮⣻⡪⢊⠠⠁⠀⠀⠀⠀⠀⠀⠐⠀⠀⠀⠀⠁⡈⠄⠠⠐⠀⠀⠀⠀⠀⠠⠀⠀⠠⠀⠌⠀⠀⠠
-          ⠀⠀⢀⠂⠀⠐⠀⢂⠂⢀⠀⠀⠠⠐⡀⠀⠀⠀⠠⠀⠂⠁⠀⠀⠀⠀⠀⠀⠀⠀⡈⠀⢈⢺⣻⣪⢪⢎⢗⢕⢕⢝⢜⣕⣗⡗⠡⠐⠀⠀⠀⠀⠀⠀⠀⠀⠡⠐⠀⠀⠀⠠⠀⠂⡁⠂⡁⠀⠄⠐⠀⠀⠄⠀⠂⡐⠈⡀⠀⠄
-          ⠀⠀⡀⠂⡀⠄⠈⡀⢂⠀⢀⠁⠀⢂⠐⠀⠀⢈⠀⠂⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⠀⠀⢻⢮⡪⡎⡧⡣⡳⡹⡸⣒⠵⡁⠀⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⢅⠀⠀⠀⠀⠀⠂⠄⠡⠀⡀⠀⠀⠀⠂⠠⠀⢂⠠⠁⠀⠀⠀
-          ⠀⠀⡀⠅⠀⠀⡐⢐⠀⡀⠄⠠⠀⠂⡈⠀⠀⠄⠐⠈⠀⠀⠀⠀⡀⠈⠠⣠⣰⢶⡄⠀⠀⢈⠀⠹⣪⢺⡸⡪⣪⢪⢪⠢⠃⠀⠀⠀⠀⢸⡲⣦⣦⢄⡄⠀⠀⠐⡐⠀⠀⠈⠀⠀⡈⠠⠁⡀⢀⠈⢀⠈⢀⠀⢀⢂⠐⠀⠀⠁
-          ⢀⠠⠀⢂⠀⢀⢂⠂⠄⠀⠠⠐⠀⠐⡀⠅⠀⠅⠈⠀⡀⠄⠐⡀⡄⣔⢵⠯⡿⢽⢺⢦⡤⡄⣀⠀⠀⡁⠈⠀⡣⡣⠣⠁⠀⠀⠀⠀⠀⣰⢫⢿⢿⡟⣺⡫⡢⡠⢐⠁⠀⠀⠀⠀⠀⠀⠂⠄⢀⠠⠀⠐⠀⠀⢐⠄⠠⠀⢂⢁
-          ⠠⠀⠐⠠⠀⠐⡠⠂⠀⠂⡀⠂⡀⠂⢐⠠⠁⠂⠁⠀⢀⠂⢎⠪⠊⠄⡣⡣⡹⡜⣕⢝⡵⡇⢿⢭⠱⡐⠠⠀⢪⠊⠀⠀⠀⢀⢀⡆⢅⡗⢕⢿⣦⢕⢸⢐⠌⡂⡁⡊⡀⠀⠀⠀⠐⠈⠐⠈⢀⠀⡀⠁⡀⠁⢀⠂⠠⠨⠂⡀
-          ⡱⠀⠀⠅⠀⠂⡂⠅⡈⠄⠠⠐⠀⡀⠂⠌⠨⠀⡀⠁⡀⠈⠠⠁⠅⠀⡘⡌⡂⢗⠸⡸⡨⣎⠪⣗⢑⢌⢂⠐⠀⠀⠀⡠⡪⡪⡓⢌⠰⡝⠌⢏⡇⢅⢪⠂⠂⠐⠀⢐⠠⠀⠀⠀⠀⡀⠄⠡⠀⠄⠠⠀⢀⠠⠀⡐⠠⠃⠁⠀
-          ⢸⢀⠁⠠⠁⡂⠌⠢⠐⠀⠂⡈⠄⠀⠂⠡⢁⠂⡀⠂⠠⠈⡀⠄⠂⠁⠀⢌⠔⠸⡐⡡⡈⠦⢕⢸⡂⠢⡂⠌⡀⡀⠆⡑⠌⢜⠨⡀⢂⢇⠑⡐⢋⢀⠸⠀⠈⠀⠈⠀⡂⡁⠀⠀⠁⠀⠀⢂⠡⠈⡀⠠⠀⠀⡀⠢⡁⠅⠀⠁
+        ⠐⡐⢐⠈⠄⠅⠌⠄⠅⢂⢐⠠⠁⠄⡁⡂⠄⠁⠡⠐⡈⠄⠡⢁⢂⠐⡐⢀⠂⠄⠅⢂⠡⠁⠅⠩⠨⠨⡘⡐⡑⢜⢘⠌⡎⡊⢒⠘⠌⠪⢂⠣⢑⠅⡣⠱⡑⡑⡑⢕⢑⠕⢕⠕⠕⢕⠕⢕⠕⡕⡕⡕⡕⡕⡕⡕⡕⡕⡕⡕
+        ⠐⠀⢂⠈⡈⠄⠡⠈⡈⠐⡀⠂⡁⠂⢂⠐⠨⠠⠁⡂⠔⢈⠐⠄⢂⢐⢀⠂⠌⡠⢁⠂⠄⠅⠡⠡⠈⠄⡊⠔⡨⢂⠅⢕⠸⡐⠠⠈⠄⡁⢂⠨⠀⡂⢐⠐⡀⢂⠈⠄⠐⡈⠠⠈⠌⠠⢈⠂⠡⠑⠈⢂⠊⢂⠊⠢⠑⠅⠕⠌
+        ⠀⡁⠄⠠⠀⡐⠀⢁⠀⠂⠀⠄⠠⠈⠀⡀⠂⡀⠂⢀⠐⠀⠐⠈⢀⠀⠄⡈⠠⠐⢀⠈⡈⢈⠈⡈⠄⢁⠪⡐⢌⢐⠡⠡⡱⠠⠡⠁⠅⡐⠄⢂⠡⠐⡀⡂⡐⠠⠈⠄⠡⠐⢈⠐⠠⠠⠐⡈⠄⠡⠈⠄⡂⡐⢈⠐⡈⠄⠂⡂
+        ⠀⠠⠀⠂⠀⠄⠐⠀⠀⠈⠀⠀⠄⠀⠂⠀⢀⠀⠀⡀⠀⠈⢀⠈⠀⠐⡀⠄⠐⠀⠄⠠⠀⠄⠠⠀⠐⠠⡑⡐⠔⡐⠡⡑⢌⠄⠀⠂⠀⠄⠠⠀⠀⠂⠀⠀⡀⠈⠀⠁⠁⠈⠀⠈⠈⠀⠁⠐⠈⠀⠅⠂⠊⠀⠂⢂⠐⠨⠐⠠
+        ⠀⠠⠀⠂⠀⢀⠀⠀⠈⠀⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠀⠀⠁⢀⠂⠠⠁⠀⠂⠀⠂⠠⠈⠠⠑⡨⡰⢁⠊⠔⡠⠡⠀⡀⠁⠠⠀⠀⠄⠂⠀⠂⠁⠀⠀⠀⢀⠀⠀⠀⠠⠀⠂⠁⠀⠀⠄⠀⠀⡈⠀⠈⠀⡀⠄⠐⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠀⠡⠀⡨⢀⠁⣈⢄⣼⣨⣮⣷⣾⣾⣼⣾⣺⣞⣔⡀⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠈⠀⠀⠀⠀⠂
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠐⢄⣷⣿⣷⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣾⣿⣽⣷⣷⢦⠈⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⠀⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⣹⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣷⣿⣿⣧⣂⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠄⠰⣸⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢿⣽⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠠⠀
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠂⠁⡐⣔⣵⣿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⣿⡦⣄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⣀⡄⡄⡀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⢁⢠⣪⣯⣿⣿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⣿⣽⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⣞⡮⣞⣜⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠐⠈⡔⣫⣿⣯⣿⣿⢿⣿⣿⣿⡿⣿⢽⣳⢟⡾⣺⣻⣳⢿⡽⣿⣿⣿⣿⣿⣿⣿⣿⣿⡿⣷⣟⡦⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⣷⣿⢵⡳⠀⣞⣶⡶⣶⣲⣖⣦⢶⢴⢴⣔⡴⡤⡤⣄⢮⢾⣟⣯⣿⣿⣿⣿⣿⡿⡯⡯⣗⢯⡺⡝⡮⣻⢺⡪⣗⣟⣗⢿⣽⢿⣿⣿⣿⣿⣿⣿⣿⣽⡿⣆⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀
+        ⣿⣿⣝⡞⢬⣿⣟⣿⣯⣿⣾⣯⣿⣟⣯⣷⣿⣟⣿⣺⢽⣟⣿⣿⣿⣿⣿⣿⡯⡿⡽⣝⢮⢺⢸⢪⡚⡎⡗⣝⢮⢺⢜⢗⡽⡯⡿⣾⣿⣿⣿⣿⣾⣷⣿⣿⡵⣼⣺⢦⣄⣤⣠⣠⡠⣀⣀⣀⣀⣀⣀⢀⡐⠀⠀⠀⠀⠀⠀⠀
+        ⣿⣿⠎⡪⣪⣿⣿⣿⣿⣿⣯⣿⣷⣿⣿⣿⣷⣿⡷⣫⣿⣿⣿⣿⣿⣿⣿⣗⢯⢏⣗⢕⡇⡗⡝⡜⢜⢜⢜⢜⢜⢕⢝⢜⢎⢏⣟⢮⢷⢿⣿⣿⣿⣿⣿⣿⣻⣗⣿⣻⣾⣳⣷⡷⣿⣻⣽⣯⣷⢿⣾⣻⡅⠀⠀⠀⠀⣿⣺⣾
+        ⣿⣿⣇⠿⣾⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣟⣿⣻⣿⣿⣿⣿⣿⣗⡯⡎⡇⡇⡇⡇⡇⡇⡎⢎⠆⡇⡣⡣⢣⢣⢣⢣⢳⢸⢱⢝⢕⢯⢟⣾⣿⣿⣿⣿⣷⣻⣯⣿⣯⣷⣿⣿⣿⣿⣽⣿⣿⣯⣿⠄⠀⠀⠀⢨⣿⣿⣾
+        ⣿⣿⣷⣳⡮⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣽⣿⣿⣿⣿⣟⡮⣞⣮⣺⣼⣺⣮⣮⣲⢱⢱⢑⢅⢇⢎⢎⢮⣪⣾⣼⣞⣮⢷⣽⣪⡳⡽⣿⣿⣿⣿⢷⣿⣟⣿⣿⣿⣿⣿⣿⣾⣿⣿⣯⣿⣾⠀⠀⠀⠀⢸⣿⣿⣿
+        ⣋⢛⠻⣟⢛⣛⣿⡻⣿⡟⠻⠻⣿⣿⣿⣿⣿⣿⣿⣿⣽⣿⣿⣿⣿⡪⣟⡳⡝⡞⡽⣝⢷⣻⣺⢽⡺⣜⡜⣜⢼⢵⢯⣗⣟⣞⢽⢹⢹⢪⡺⡝⡞⣿⣿⣿⣿⢿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡯⠀⠀⠀⠀⣺⣿⣿⣿
+        ⠹⡻⡿⡾⣽⢮⢯⢫⢫⢻⡢⠀⢘⣿⡿⡿⡿⡿⣯⣿⣟⢿⣿⣿⣗⢕⢕⢜⢜⢼⠸⡜⣜⣞⢮⢯⢯⡺⡜⡜⣕⢯⣳⡣⣗⢮⢎⢞⢼⢸⢸⢸⢨⢻⣿⣿⢿⢿⢿⣿⣿⣿⣿⣿⢿⢿⢿⢿⣿⣿⣿⣏⢀⢀⠀⠀⠿⠿⢿⣿
+        ⠾⠿⠿⠿⠾⠾⠾⠾⡶⡵⡴⣯⣷⣿⣟⣿⣾⣻⡲⡀⢀⠀⢿⣿⡇⡣⡱⣕⣷⢷⣿⣿⣿⢞⣯⢯⡳⡣⡑⢌⢪⡳⡳⣽⣟⣿⣿⣿⢗⣿⢼⡸⡐⡹⣿⡿⠿⢾⢷⣷⣷⣿⣾⣿⣷⢶⡦⡤⣥⣬⣈⠡⠠⢄⢁⣁⣀⣀⡈⣉
+        ⣴⣰⣰⣄⣆⣤⣐⣄⣄⣠⣀⢄⣀⣀⡠⡀⡄⡁⣀⢀⡀⡀⠰⣿⠣⡑⡱⢩⢪⢳⡹⣫⠯⡏⡏⡞⡜⢜⠨⠢⡑⡍⡏⣗⢳⢽⡹⣝⢝⡜⡜⢌⠢⠊⣿⢯⣔⣰⣲⣼⣭⣗⣟⣯⣪⣥⣄⣄⣄⣁⡁⡀⠀⠀⠉⠙⠙⠙⡙⣛
+        ⣿⣿⣟⡪⣓⢓⡛⢞⠺⠳⡫⠯⠺⡪⠏⡏⢯⢯⢯⣟⣽⣟⡏⡫⡑⡐⢌⠪⢘⠸⡘⢜⢘⢌⠪⡨⡊⢆⠕⠡⡑⡅⡇⢎⢪⠢⠣⡃⢇⠪⡨⢂⠕⡁⢺⢤⡠⣀⣄⡠⣁⣁⣉⢉⡉⣈⢉⡉⡉⡑⠙⠙⠀⡀⠈⠈⠊⠚⠞⠿
+        ⣿⣿⡷⣝⢜⢕⢝⢜⢎⢏⢎⢎⢏⢎⢇⢯⡪⣯⣿⣮⣷⣿⡎⡗⢌⠢⡑⠌⡂⡑⠌⡂⢅⢢⢑⢕⢘⢔⢨⠨⡂⠕⢜⢜⢐⢅⢃⠪⢐⠅⡊⠔⢌⠔⡡⡳⣹⢽⣳⣟⢷⢽⣺⢽⢽⢽⣻⢾⣿⣿⣿⣿⣿⣾⣿⣿⣿⣿⣾⣷
+        ⣿⣿⣿⡪⡇⡗⡕⡕⡕⡕⡕⡕⣕⢕⢕⡕⡵⣹⣿⣿⣿⣿⡇⡎⡆⠕⡌⢌⢂⠪⡐⢌⠢⡱⡑⡌⡮⣲⢱⢕⢵⡹⣐⢱⠨⡂⡢⠡⡑⠌⠔⢅⠕⡌⣎⢎⣺⡽⣺⣽⢽⣝⢾⢽⢝⣟⡞⣍⢎⣍⡫⣙⢝⣋⣛⢛⢻⢛⡛⡟
+        ⣿⣿⡷⣝⢎⢎⢎⢮⢪⢪⡪⡪⡪⡪⡪⡪⡪⡖⣿⣿⣿⡗⡝⢼⢌⢕⢜⠰⡡⡑⢌⠢⡑⢕⢕⡽⡿⡻⡽⡝⣟⢿⢧⢇⢇⢕⢨⠨⠢⡑⡍⡢⡃⡎⣺⣳⢸⢽⡳⣝⣷⢽⢕⡯⣫⡾⣱⠱⡱⡢⡣⡣⡳⡸⡸⡸⡱⡕⡵⣹
+        ⣿⣿⣟⡮⡇⡇⡇⡇⢇⢇⢇⢇⢇⢇⢇⠇⡇⡯⡺⣿⣿⣷⣷⡹⡨⢢⠣⡱⡑⡌⢎⠪⡘⢔⠕⡝⡪⡣⡣⡣⡣⣫⢹⢑⠱⡐⢅⠪⡪⢢⠣⡪⡸⢸⢘⢜⣜⢷⢽⡽⣞⣿⣷⣿⢿⡱⡣⡣⡣⡣⡣⡣⡣⡣⡣⡣⡣⡣⡳⣕
+        ⣿⣿⣗⣯⢎⡪⡢⡣⡣⡱⡸⡰⡱⢱⠸⡘⡜⡜⣗⢝⢕⣽⣿⣷⠡⡣⡱⡑⡕⡕⡕⡅⣇⢕⡵⡱⡹⡸⢸⠸⣘⢜⢜⢜⢬⢪⢸⠨⡊⡆⡇⡇⢎⢎⠎⣕⣯⡫⣯⣻⡽⣿⣿⣾⡣⣳⢱⠱⡱⡸⡸⡸⡸⡸⡸⡸⡸⡜⣎⢮
+        ⣿⣿⣷⣿⣷⣱⡱⡜⡜⡜⡜⡜⡜⡜⡜⣜⢜⡼⡽⡮⣾⣿⣿⣿⣧⢪⢸⢸⢸⢸⢜⣞⢮⡣⣧⣳⢽⣺⣳⢽⣺⣳⣳⣕⡭⡳⣣⡳⡱⡱⡱⡸⡸⣰⣵⣿⣿⣿⣿⣷⣿⡩⡫⣓⢽⠸⡐⢕⠱⡘⡌⡆⡇⡇⡇⡇⡇⢇⢳⣝
+        ⣿⣿⣟⣿⡿⣷⣿⡾⣷⣳⣷⣵⣗⣷⣽⣮⣷⣿⣿⣾⣿⣿⣿⣿⣿⡇⡕⡜⡜⣜⢵⣳⢷⢟⡗⡫⡫⢫⢚⠫⡋⡝⡝⡷⡿⡿⣮⡫⡎⡎⡎⡆⢇⣿⣿⣿⣿⣿⣿⣿⣿⣧⢪⣪⢗⢕⢱⢑⢕⢱⢡⢣⢱⢑⢕⢕⢱⢱⢱⣳
+        ⣿⣿⣿⣿⣿⣿⣷⣿⠍⠉⢝⠉⠉⠉⢓⢹⡺⡷⣷⢷⣿⣿⣿⣿⣿⣗⡕⢕⢕⢕⡕⣇⢏⢞⢎⣗⢗⡵⣕⢧⡳⡵⣳⢳⢝⡺⡪⡞⡎⡎⡎⡎⣮⣿⣿⣟⣟⣟⢟⣿⣿⣻⣿⣝⡳⡵⣱⡱⡱⡱⡱⡱⡱⡱⡱⡱⡱⣕⣿⣯
+        ⣿⣿⣿⣿⣿⣿⣿⡿⡄⢠⣣⠀⠐⣌⣗⣝⠀⣝⣿⣻⣿⣷⣿⣿⣿⣿⣷⡱⡱⣱⢹⡸⡜⡎⣇⢗⢯⡻⣺⢯⢯⢻⣪⡫⢮⡪⣳⢹⢜⢎⢎⡲⣿⣿⣿⣿⣿⠄⢩⡿⡹⣾⠀⠩⡛⠛⢻⣽⡿⢿⣾⣷⣿⣾⣯⣿⣿⣿⣿⣟
+        ⣿⣿⡿⣻⡿⣿⣿⢽⢇⡗⣗⠢⡢⡒⡕⣗⢕⣗⢿⣻⣿⣻⣿⣿⣿⣻⣽⣷⡱⡱⡕⡵⡱⣝⢜⢮⡣⡯⡮⣳⢝⣕⢧⡫⣇⢯⢺⡸⡪⣪⢪⣾⣿⣿⣿⣿⣿⠂⣸⡯⡆⣻⠀⢰⢡⢂⢴⢽⡣⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣷
+        ⣿⣿⣟⣿⣫⢗⣿⣝⣵⡳⡵⣕⢵⡱⣝⢮⢧⣗⣟⣾⣟⣞⣿⣿⣿⣳⣻⡏⢜⢎⡞⡼⡱⣕⢝⢮⣪⡳⣝⡮⡯⣺⢵⢝⢼⡱⣳⢹⢜⡎⣾⣿⣿⣿⣿⣿⣿⡣⢽⡇⡊⣿⡐⢕⠕⢧⡫⣟⢗⡿⣿⣻⢿⢿⣿⣿⡿⣾⣿⡧
+        ⣿⡿⡫⡮⣪⡫⣟⢞⢮⡫⡞⡎⡗⣝⢵⡫⣳⢳⢕⣿⡗⡗⣿⣿⡿⠺⠙⠁⠸⡸⣪⡳⣝⢼⣱⢳⣕⢯⣗⢯⡻⡮⣳⢝⡵⣹⢼⢕⡗⣝⠄⢿⣿⣿⣿⣿⣿⣮⣻⣕⣕⣿⢎⡮⡮⣣⡳⡵⣝⡾⡵⣯⢯⣯⣿⣿⣟⣿⣿⣯
+        ⢾⡏⢎⢎⢖⢕⡳⡹⡱⡱⡣⡫⡺⡸⡪⡺⢜⢎⢗⢽⠇⠇⠇⠆⢀⠐⠀⠀⠈⣗⠵⣝⢞⣗⢷⣝⡮⣗⣽⢵⢯⢯⣞⡵⣯⡺⣕⢯⡺⡪⡇⠀⠉⠙⠻⣿⣿⣾⣿⢪⠮⣿⢳⢝⢽⢕⢯⢯⡺⡽⡽⡽⣯⣻⢿⣿⣻⢿⣿⢯
+        ⣿⠪⡨⢢⢑⠕⡌⢆⠣⡪⠨⠊⠌⠊⠌⠪⠨⠊⠈⢀⠀⠀⠀⠠⢐⠁⠀⠀⠀⢸⡽⡸⣕⣗⢯⣞⡽⣻⢞⡿⡽⡯⣞⢽⡪⣞⢵⡳⡕⣿⠌⠀⠀⠁⠄⡈⠉⠙⠈⠊⠪⢿⡨⢪⢪⢪⢣⢣⢫⢪⢣⡋⡎⡞⡻⡱⡓⡝⣝⢕
+        ⣿⢨⢊⠢⡑⠑⠘⠈⠀⠀⠀⠀⠀⠀⠀⡀⠄⠂⠈⡀⠀⢀⠈⠠⠑⠀⠀⠀⠀⠄⢿⣝⣜⢮⡳⣳⣫⢯⢯⣫⢯⢯⣺⢳⢝⢮⡳⣕⢽⡿⠨⠀⠀⠀⢅⠀⠀⠀⢁⠠⠀⠀⠈⠈⠈⠊⠊⠎⡎⡇⡇⡇⡇⡎⢜⠰⡑⢕⢕⢕
+        ⠙⠈⢀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠀⠈⠠⠀⠄⢂⠠⠀⠄⠀⠠⢈⠂⠀⠀⠀⠀⡀⠹⣮⢮⢺⡪⡳⣕⢯⢳⡳⣫⡳⣕⢏⣏⢧⢳⢕⣿⡏⠄⠀⠀⠀⠌⠄⠀⠀⠀⠀⠀⡁⢀⠀⠀⠀⠀⠀⠀⠀⠁⠁⠑⠑⠅⡣⡱⠡⠣⡑
+        ⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠀⠀⠂⢁⠀⠂⠐⢀⠀⠀⠀⠐⠐⡀⢀⠀⠀⡀⠄⠀⠐⣽⣞⢜⢎⡏⡮⣪⢳⡹⡜⡮⣪⡳⣕⡳⡹⣝⡯⠂⠄⠀⠀⠀⠈⠄⠀⠀⠀⠐⠀⠀⠀⠀⠁⠀⠁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠈⠈⠕⢌
+        ⠀⠀⠀⠀⠀⠀⢀⠀⠂⠀⠀⠈⡀⠂⡀⢁⠈⠀⠀⠀⢈⠈⠄⡀⠀⢀⠀⠀⠀⠀⢂⢚⣿⡪⣣⢳⡹⣜⢮⣪⢺⡪⡺⡜⣖⢭⢯⣟⠇⡁⠄⠀⠀⠀⠈⠄⡀⠀⠀⠀⠂⢁⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠠⠀⠀⠁
+        ⠀⠀⠈⠀⠀⠀⠠⠀⠅⠂⠀⠄⢀⢁⠀⡀⠀⠄⠀⠐⢀⠐⠀⠀⠄⠀⠀⠀⠀⠄⠐⡀⢯⣯⢎⢞⢜⢎⢧⢳⢕⢽⡱⡝⣜⢮⣻⡺⠁⠄⠀⠀⠀⠀⠀⢊⠀⠀⠀⠀⠈⠀⠄⢁⠠⠀⠀⠀⠀⠀⠀⠀⠀⠀⢀⠂⠀⠀⠁⠀
+        ⠀⠀⢈⠀⠀⠀⠠⢈⠐⠀⢀⠀⠄⡀⠂⠀⠀⠀⠀⡈⠀⠀⠐⠀⠀⠀⠀⠀⠀⠀⠐⢀⠑⣿⡳⡕⣝⢜⢎⢮⡪⡣⡣⡫⣮⣻⡪⢊⠠⠁⠀⠀⠀⠀⠀⠀⠐⠀⠀⠀⠀⠁⡈⠄⠠⠐⠀⠀⠀⠀⠀⠠⠀⠀⠠⠀⠌⠀⠀⠠
+        ⠀⠀⢀⠂⠀⠐⠀⢂⠂⢀⠀⠀⠠⠐⡀⠀⠀⠀⠠⠀⠂⠁⠀⠀⠀⠀⠀⠀⠀⠀⡈⠀⢈⢺⣻⣪⢪⢎⢗⢕⢕⢝⢜⣕⣗⡗⠡⠐⠀⠀⠀⠀⠀⠀⠀⠀⠡⠐⠀⠀⠀⠠⠀⠂⡁⠂⡁⠀⠄⠐⠀⠀⠄⠀⠂⡐⠈⡀⠀⠄
+        ⠀⠀⡀⠂⡀⠄⠈⡀⢂⠀⢀⠁⠀⢂⠐⠀⠀⢈⠀⠂⠀⠀⠀⠀⠀⠀⠀⠀⡀⠀⠀⠀⠀⠀⢻⢮⡪⡎⡧⡣⡳⡹⡸⣒⠵⡁⠀⠄⠀⠀⠀⠀⠀⠀⠀⠀⠀⢅⠀⠀⠀⠀⠀⠂⠄⠡⠀⡀⠀⠀⠀⠂⠠⠀⢂⠠⠁⠀⠀⠀
+        ⠀⠀⡀⠅⠀⠀⡐⢐⠀⡀⠄⠠⠀⠂⡈⠀⠀⠄⠐⠈⠀⠀⠀⠀⡀⠈⠠⣠⣰⢶⡄⠀⠀⢈⠀⠹⣪⢺⡸⡪⣪⢪⢪⠢⠃⠀⠀⠀⠀⢸⡲⣦⣦⢄⡄⠀⠀⠐⡐⠀⠀⠈⠀⠀⡈⠠⠁⡀⢀⠈⢀⠈⢀⠀⢀⢂⠐⠀⠀⠁
+        ⢀⠠⠀⢂⠀⢀⢂⠂⠄⠀⠠⠐⠀⠐⡀⠅⠀⠅⠈⠀⡀⠄⠐⡀⡄⣔⢵⠯⡿⢽⢺⢦⡤⡄⣀⠀⠀⡁⠈⠀⡣⡣⠣⠁⠀⠀⠀⠀⠀⣰⢫⢿⢿⡟⣺⡫⡢⡠⢐⠁⠀⠀⠀⠀⠀⠀⠂⠄⢀⠠⠀⠐⠀⠀⢐⠄⠠⠀⢂⢁
+        ⠠⠀⠐⠠⠀⠐⡠⠂⠀⠂⡀⠂⡀⠂⢐⠠⠁⠂⠁⠀⢀⠂⢎⠪⠊⠄⡣⡣⡹⡜⣕⢝⡵⡇⢿⢭⠱⡐⠠⠀⢪⠊⠀⠀⠀⢀⢀⡆⢅⡗⢕⢿⣦⢕⢸⢐⠌⡂⡁⡊⡀⠀⠀⠀⠐⠈⠐⠈⢀⠀⡀⠁⡀⠁⢀⠂⠠⠨⠂⡀
+        ⡱⠀⠀⠅⠀⠂⡂⠅⡈⠄⠠⠐⠀⡀⠂⠌⠨⠀⡀⠁⡀⠈⠠⠁⠅⠀⡘⡌⡂⢗⠸⡸⡨⣎⠪⣗⢑⢌⢂⠐⠀⠀⠀⡠⡪⡪⡓⢌⠰⡝⠌⢏⡇⢅⢪⠂⠂⠐⠀⢐⠠⠀⠀⠀⠀⡀⠄⠡⠀⠄⠠⠀⢀⠠⠀⡐⠠⠃⠁⠀
+        ⢸⢀⠁⠠⠁⡂⠌⠢⠐⠀⠂⡈⠄⠀⠂⠡⢁⠂⡀⠂⠠⠈⡀⠄⠂⠁⠀⢌⠔⠸⡐⡡⡈⠦⢕⢸⡂⠢⡂⠌⡀⡀⠆⡑⠌⢜⠨⡀⢂⢇⠑⡐⢋⢀⠸⠀⠈⠀⠈⠀⡂⡁⠀⠀⠁⠀⠀⢂⠡⠈⡀⠠⠀⠀⡀⠢⡁⠅⠀⠁
+        ⠨⡢⢀⠡⢐⠐⡈⠌⡊⠄⡡⠀⡂⠁⡈⢐⠠⠡⠐⢈⠀⡂⠠⠀⠐⠀⠐⢐⠐⡀⢇⠢⡊⢍⢥⠂⣇⠨⡐⡡⠐⠄⠅⠂⠅⢅⠅⡐⠠⡃⠠⢁⠑⡀⡪⢀⠐⠀⠐⠀⡐⡀⠂⢀⠠⠀⠈⠀⡐⠠⠀⢀⠀⠂⠀⡱⠐⠀⠀⠀
+        ⢂⠅⠄⡀⢂⢁⠢⢨⢐⠅⡂⠅⠠⠀⠄⢀⠂⠅⠅⢂⠐⡀⠂⡀⢁⠐⠀⠄⢅⠐⠨⡢⠘⠌⡎⡣⠸⡜⢌⠜⠌⠌⠌⠨⠨⠐⠀⠀⢸⠠⠁⡣⠢⠐⡨⠀⢀⠀⠐⠀⡐⠠⢁⠀⠀⠀⢀⠀⠀⡂⠈⠀⠀⡀⠁⢜⠀⠄⠠⢁
+        ⢢⠡⠀⠨⢀⠂⡂⡂⠕⢌⢌⠌⠔⢀⠂⢐⠈⠄⠅⢂⠐⡀⠂⠠⠀⢐⠀⢐⠠⡁⢂⢱⢁⠣⢊⠽⢂⢹⠀⠕⠅⡂⠂⠁⠀⠀⠀⠐⢸⠀⠅⢜⠘⠄⢪⠀⠠⠀⢀⠁⠠⢁⠂⡈⠠⠁⠠⠀⠂⠠⠈⠀⠄⠀⠂⢂⢂⠨⠈⠄
       </pre>
 
 
@@ -307,6 +121,28 @@
           meaningful difference in people's lives.
         </p>
 
+        <div class="social-links">
+
+          <a class="typewriter" data-speed="35" href="https://github.com/bulsu-rlborlongan" target="_blank"
+            rel="noopener noreferrer ">
+            github
+            <span class="arrow">↗</span>
+          </a>
+
+          <a class="typewriter" data-speed="35" href="https://linkedin.com/in/rap-borlongan" target="_blank"
+            rel="noopener noreferrer">
+            linkedin
+            <span class="arrow">↗</span>
+          </a>
+
+          <button class="theme-toggle typewriter" data-speed="35" type="button" aria-label="Switch to light mode"
+            aria-pressed="false">
+            <span class="sun" aria-hidden="true">☼</span>
+            <span class="moon" aria-hidden="true">☾</span>
+          </button>
+
+        </div>
+
       </header>
 
     </div>
@@ -314,7 +150,7 @@
 
     <!-- ABOUT -->
 
-    <section>
+    <section id="about">
 
       <h2>
         <span class="heading-prefix typewriter" data-speed="35"></span>
@@ -324,7 +160,7 @@
         </span>
 
         <span class="heading-line typewriter" data-speed="8">
-          ]===================================================
+          ]======================================================================================================
         </span>
       </h2>
 
@@ -337,7 +173,7 @@
       <p class="typewriter" data-speed="7">
         I like turning ideas into working applications and continuously improving my skills by experimenting with new
         technologies and solving real-world problems. I'm especially interested in developing scalable systems that are
-        useful, efficient, and easy for people to use.
+        useful, efficient, and easy for people to use. In my free time, I also enjoy playing music, listening to rock, and watching movies.
       </p>
 
       <p class="typewriter" data-speed="7">
@@ -350,7 +186,7 @@
 
     <!-- PROJECTS -->
 
-    <section>
+    <section id="projects">
 
       <h2>
         <span class="heading-prefix typewriter" data-speed="35"></span>
@@ -360,7 +196,7 @@
         </span>
 
         <span class="heading-line typewriter" data-speed="8">
-          ]===================================================
+          ]======================================================================================================
         </span>
       </h2>
 
@@ -393,7 +229,7 @@
 
     <!-- EXPERIENCE -->
 
-    <section>
+    <section id="experience">
 
       <h2>
         <span class="heading-prefix typewriter" data-speed="35"></span>
@@ -403,7 +239,7 @@
         </span>
 
         <span class="heading-line typewriter" data-speed="8">
-          ]===================================================
+          ]======================================================================================================
         </span>
       </h2>
 
@@ -431,15 +267,16 @@
 
           <li class="typewriter" data-speed="6">
 
-            Design, development, and deployment of web and mobile applications for a blood donation center.
+            Designed, developed, and deployed web and mobile applications for a blood donation center.
 
             <p>
-              Architected full-stacsk solutions using React, React Native, Node.js, Express.js, PostgreSQL, with
-              Hyperledger Fabric for blood donation management system. Built rapid MVPs using Figma, Stitch, Draw.io.
+              Architected full-stack solutions using React, React Native, Node.js, Express.js, PostgreSQL, and
+              Hyperledger Fabric for a blood donation management system. Built rapid MVPs using Figma, Stitch, and
+              Draw.io.
             </p>
 
             <p>
-              Managed DevOps pipelines using GitHub Actions, and Docker, Setting up CI/CD workflows, automated testing,
+              Managed DevOps pipelines using GitHub Actions and Docker. Set up CI/CD workflows, automated testing,
               automated linting, environment provisioning, system diagnostics, health checks, and uptime monitoring.
             </p>
 
@@ -454,7 +291,7 @@
 
     <!-- TECH STACK -->
 
-    <section>
+    <section id="tech-stack">
 
       <h2>
         <span class="heading-prefix typewriter" data-speed="35"></span>
@@ -464,7 +301,7 @@
         </span>
 
         <span class="heading-line typewriter" data-speed="8">
-          ]===================================================
+          ]======================================================================================================
         </span>
       </h2>
 
@@ -525,7 +362,7 @@
 
     <!-- CERTIFICATIONS -->
 
-    <section>
+    <!--<section id="certifications">
 
       <h2>
         <span class="heading-prefix typewriter" data-speed="35"></span>
@@ -535,409 +372,47 @@
         </span>
 
         <span class="heading-line typewriter" data-speed="8">
-          ]===================================================
+          ]======================================================================================================
         </span>
       </h2>
 
+    </section> -->
+
+    <section class="terminal-contact" id="terminal">
+
+      <h2>
+        <span class="heading-prefix typewriter" data-speed="35"></span>
+
+        <span class="typewriter" data-speed="45">
+          Navigate
+        </span>
+
+        <span class="heading-line typewriter" data-speed="8">
+          ]======================================================================================================
+        </span>
+      </h2>
+
+      <form class="terminal-form" id="contactForm">
+
+        <div class="terminal-row typewriter" data-speed="20">
+          <label for="sectionCommand">type a section</label>
+        </div>
+
+        <div class="terminal-row terminal-input-step" id="commandStep">
+          <span class="terminal-prompt" id="commandPrompt">visitor:~$</span>
+          <input id="sectionCommand" name="sectionCommand" type="text" autocomplete="off">
+          <span class="terminal-input-cursor" aria-hidden="true">█</span>
+        </div>
+
+        <p class="terminal-output" id="commandOutput" aria-live="polite"></p>
+
+      </form>
+
     </section>
+
 
   </main>
 
-
-
-  <script>
-
-    function sleep(ms) {
-
-      return new Promise(
-        resolve => setTimeout(resolve, ms)
-      );
-
-    }
-
-
-    function isVisible(element) {
-
-      const rect =
-        element.getBoundingClientRect();
-
-
-      return (
-        rect.top <
-        window.innerHeight - 60
-      );
-
-    }
-
-
-    function waitUntilVisible(element) {
-
-      return new Promise(resolve => {
-
-
-        /*
-          Already visible?
-          Continue immediately.
-        */
-
-        if (isVisible(element)) {
-
-          resolve();
-
-          return;
-
-        }
-
-        function checkVisibility() {
-
-          if (isVisible(element)) {
-
-            window.removeEventListener(
-              "scroll",
-              checkVisibility
-            );
-
-
-            window.removeEventListener(
-              "resize",
-              checkVisibility
-            );
-
-
-            resolve();
-
-          }
-
-        }
-
-
-        window.addEventListener(
-          "scroll",
-          checkVisibility,
-          {
-            passive: true
-          }
-        );
-
-
-        window.addEventListener(
-          "resize",
-          checkVisibility
-        );
-
-      });
-
-    }
-
-    async function typeUnicodeArt(
-      element,
-      speed = 15
-    ) {
-
-      const originalArt =
-        element.textContent
-          .replace(/^\n/, "")
-          .replace(/\n\s*$/, "")
-          .replace(/^ {10}/gm, "");
-
-
-      const height =
-        element.getBoundingClientRect().height;
-
-
-      /*
-        Keep its space while the art
-        is being printed so the hero
-        doesn't jump around.
-      */
-
-      element.style.minHeight =
-        height + "px";
-
-
-      const lines =
-        originalArt.split("\n");
-
-
-      element.textContent = "";
-
-
-      element.style.visibility =
-        "visible";
-
-
-      for (const line of lines) {
-
-        element.textContent +=
-          line + "\n";
-
-
-        await sleep(speed);
-
-      }
-
-
-      /*
-        Original art is now restored,
-        so the temporary height is no
-        longer necessary.
-      */
-
-      element.style.minHeight = "";
-
-    }
-
-    async function typeText(
-      element,
-      speed = 20
-    ) {
-
-      /*
-        Remember its original height
-        before removing the text.
-      */
-
-      const originalHeight =
-        element.getBoundingClientRect().height;
-
-
-      element.style.minHeight =
-        originalHeight + "px";
-
-
-      /*
-        Find every text node inside
-        the element.
-      */
-
-      const walker =
-        document.createTreeWalker(
-          element,
-          NodeFilter.SHOW_TEXT
-        );
-
-
-      const textNodes = [];
-
-
-      while (walker.nextNode()) {
-
-        const node =
-          walker.currentNode;
-
-
-        /*
-          Convert unnecessary HTML
-          whitespace/newlines into
-          normal spaces.
-        */
-
-        const text =
-          node.nodeValue
-            .replace(/\s+/g, " ")
-            .trim();
-
-
-        if (text.length > 0) {
-
-          textNodes.push({
-            node: node,
-            text: text
-          });
-
-        }
-
-      }
-
-
-
-      /*
-        Remove all of the text while
-        leaving elements such as
-        <p> and <li> intact.
-      */
-
-      textNodes.forEach(item => {
-
-        item.node.nodeValue = "";
-
-      });
-
-
-
-      /*
-        Make the element visible.
-      */
-
-      element.style.visibility =
-        "visible";
-
-
-      element.classList.add(
-        "type-cursor"
-      );
-
-
-
-      /*
-        Type through every text node
-        in order.
-      */
-
-      for (const item of textNodes) {
-
-
-        for (
-          let i = 0;
-          i < item.text.length;
-          i++
-        ) {
-
-
-          item.node.nodeValue +=
-            item.text[i];
-
-          let delay = speed;
-
-
-          const character =
-            item.text[i];
-
-
-          if (
-            character === "." ||
-            character === "," ||
-            character === ":" ||
-            character === ";"
-          ) {
-
-            delay += 25;
-
-          }
-
-
-          await sleep(delay);
-
-        }
-
-      }
-
-      element.classList.remove(
-        "type-cursor"
-      );
-
-
-      element.style.minHeight = "";
-
-    }
-
-
-    async function startPage() {
-
-
-      /*
-        STEP 1:
-        Print Unicode art.
-      */
-
-      const art =
-        document.querySelector(
-          ".unicode-type"
-        );
-
-
-      if (art) {
-
-        const artSpeed =
-          Number(
-            art.dataset.speed
-          ) || 15;
-
-
-        await typeUnicodeArt(
-          art,
-          artSpeed
-        );
-
-      }
-
-
-
-      /*
-        Small pause between portrait
-        and your name.
-      */
-
-      await sleep(250);
-
-
-
-      /*
-        STEP 2:
-        Start normal text queue.
-      */
-
-      const elements =
-        document.querySelectorAll(
-          ".typewriter"
-        );
-
-
-
-      for (const element of elements) {
-
-
-        /*
-          Don't start the next item
-          until the user has scrolled
-          far enough to see it.
-        */
-
-        await waitUntilVisible(
-          element
-        );
-
-
-
-        const speed =
-          Number(
-            element.dataset.speed
-          ) || 20;
-
-
-
-        await typeText(
-          element,
-          speed
-        );
-
-        /*
-          Short terminal-style pause
-          between outputs.
-        */
-
-        await sleep(100);
-
-      }
-
-    }
-
-    const headingPrefixes =
-      document.querySelectorAll(".heading-prefix");
-
-    headingPrefixes.forEach((prefix, index) => {
-
-      const number =
-        String(index + 1).padStart(2, "0");
-
-      prefix.textContent =
-        `[${number} - `;
-    });
-
-
-    startPage();
-
-  </script>
 
 </body>
 
