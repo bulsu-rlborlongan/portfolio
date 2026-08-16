@@ -353,7 +353,7 @@
     .theme-toggle .moon {
       color: #ffffff;
       font-size: 17px;
-      transform: translateY(0.02em);
+      transform: translateY(0.08em);
     }
 
     body.light-mode .theme-toggle .sun {
