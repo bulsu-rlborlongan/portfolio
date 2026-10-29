@@ -1,0 +1,57 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@theme {
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, monospace;
+
+  /* SlideButton: light sweep across the label, and a periodic nudge of the knob toward the end. */
+  --animate-shimmer: shimmer 2.6s linear infinite;
+  --animate-nudge: nudge 3.2s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+
+  @keyframes shimmer {
+    from {
+      background-position: 200% 0;
+    }
+    to {
+      background-position: -200% 0;
+    }
+  }
+  @keyframes nudge {
+    0%,
+    70%,
+    100% {
+      translate: 0;
+    }
+    80% {
+      translate: 10px;
+    }
+    90% {
+      translate: 0;
+    }
+  }
+}
+
+:root {
+  color-scheme: light;
+}
+:root.dark {
+  color-scheme: dark;
+}
+
+/* Theme switch: the circular reveal is driven from ThemeToggle, so turn off the default fade. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+/* Fallback crossfade when View Transitions aren't available. */
+.theme-anim,
+.theme-anim * {
+  transition:
+    background-color 0.5s ease,
+    border-color 0.5s ease,
+    color 0.5s ease !important;
+}
